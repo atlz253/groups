@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Group from "./group/Group";
 import dataGateway from "./dataGateway/dataGateway";
-import GroupCard from "./components/GroupCard";
+import GroupCard from "./components/GroupCard/GroupCard";
 
 function App() {
   const [groups, setGroups] = useState<Group[]>([]);
