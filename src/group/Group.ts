@@ -7,7 +7,7 @@ interface Group {
   friends?: User[];
 }
 
-type AvatarColor =
+export type AvatarColor =
   | "red"
   | "green"
   | "yellow"
@@ -16,7 +16,7 @@ type AvatarColor =
   | "orange"
   | "white";
 
-interface User {
+export interface User {
   first_name: string;
   last_name: string;
 }
