@@ -15,7 +15,7 @@ class mockGateway extends abstractGateway {
     this.requestDelayMilliseconds = requestDelayMilliseconds;
   }
 
-  public async getGroups(params?: Partial<GroupsFilters>) {
+  public async getGroups(params?: GroupsFilters) {
     const data: GatewayResponse<Group[]> = {
       result: 1,
       data: params === undefined ? groups : filterGroups(params),

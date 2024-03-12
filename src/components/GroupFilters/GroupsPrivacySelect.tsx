@@ -1,25 +1,17 @@
-import { ChangeEvent } from "react";
-import { useGroupsPrivacyFilter } from "../hooks/groups";
-import { GroupsPrivacyFilterValues } from "../groups/GroupsFilters";
+import { CSSProperties, ChangeEvent } from "react";
+import { useGroupsPrivacyFilter } from "../../hooks/groups";
+import { GroupsPrivacyFilterValues } from "../../groups/GroupsFilters";
 
 const SELECT_PRIVACY_TYPE_LABEL = "Выберите тип приватности";
 const PRIVATE_GROUPS_LABEL = "Приватные группы";
 const PUBLIC_GROUPS_LABEL = "Публичные группы";
 
-function GroupsFilters() {
-  return (
-    <div>
-      <GroupsPrivacySelect />
-    </div>
-  );
-}
-
-function GroupsPrivacySelect() {
+function GroupsPrivacySelect({ style }: { style?: CSSProperties }) {
   const { groupsPrivacyFilter, setGroupsPrivacyFilter } =
     useGroupsPrivacyFilter();
 
   return (
-    <select value={groupsPrivacyFilter} onChange={setFilter}>
+    <select style={style} value={groupsPrivacyFilter} onChange={setFilter}>
       <option value="all">{SELECT_PRIVACY_TYPE_LABEL}</option>
       <option value="public">{PUBLIC_GROUPS_LABEL}</option>
       <option value="private">{PRIVATE_GROUPS_LABEL}</option>
@@ -33,4 +25,4 @@ function GroupsPrivacySelect() {
   }
 }
 
-export default GroupsFilters;
+export default GroupsPrivacySelect;

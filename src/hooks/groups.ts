@@ -5,6 +5,7 @@ import {
   default as groupsContext,
 } from "../contexts/GroupsContext";
 import {
+  GroupsAvatarColorFilterValues,
   GroupsFilters,
   GroupsPrivacyFilterValues,
 } from "../groups/GroupsFilters";
@@ -19,8 +20,7 @@ export function useGroups() {
 }
 
 export function useGroupsPrivacyFilter() {
-  const { store, dispatch } = useGroupsContext();
-  const { filters } = store;
+  const { filters, dispatch } = useGroupsFilters();
   const { privacyFilter: groupsPrivacyFilter } = filters;
   const setGroupsPrivacyFilter = (privacyFilter: GroupsPrivacyFilterValues) => {
     updateGroups(dispatch, { ...filters, privacyFilter });
@@ -28,6 +28,27 @@ export function useGroupsPrivacyFilter() {
   };
 
   return { groupsPrivacyFilter, setGroupsPrivacyFilter };
+}
+
+export function useGroupsAvatarColorFilter() {
+  const { filters, dispatch } = useGroupsFilters();
+  const { avatarColorFilter } = filters;
+  const setAvatarColorFilter = (
+    avatarColorFilter: GroupsAvatarColorFilterValues
+  ) => {
+    updateGroups(dispatch, { ...filters, avatarColorFilter });
+    dispatch({
+      type: groupsActions.setAvatarColorFilter,
+      payload: avatarColorFilter,
+    });
+  };
+  return { avatarColorFilter, setAvatarColorFilter };
+}
+
+function useGroupsFilters() {
+  const { store, dispatch } = useGroupsContext();
+  const { filters } = store;
+  return { filters, dispatch };
 }
 
 export function useGroupsReducer() {

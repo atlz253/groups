@@ -5,7 +5,7 @@ import GatewayResponse from "./GatewayResponse";
 
 class abstractGateway {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async getGroups(_params?: Partial<GroupsFilters>): Promise<GatewayResponse<Group[]>> {
+  public async getGroups(_params?: GroupsFilters): Promise<GatewayResponse<Group[]>> {
     throw new Error(
       errorMessages.getMethodNotImplementedErrorMessage(
         abstractGateway.name,

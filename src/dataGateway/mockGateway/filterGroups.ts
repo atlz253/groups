@@ -1,27 +1,38 @@
-import Group from "../../groups/Group";
+import Group, { AvatarColor } from "../../groups/Group";
 import {
+  GroupsAvatarColorFilterValues,
   GroupsFilters,
   GroupsPrivacyFilterValues,
 } from "../../groups/GroupsFilters";
 import groups from "./groups";
 
-function filterGroups(params: Partial<GroupsFilters>): Group[] {
-  const { privacyFilter } = params;
+function filterGroups(params: GroupsFilters): Group[] {
+  const { privacyFilter, avatarColorFilter } = params;
 
-  return groups.filter((group) =>
-    isRequiredGroupPrivacy(privacyFilter, group.closed)
+  return groups.filter(
+    (group) =>
+      isRequiredGroupPrivacy(privacyFilter, group.closed) &&
+      isRequiredAvatarColor(avatarColorFilter, group.avatar_color)
   );
 }
 
 function isRequiredGroupPrivacy(
-  requiredPrivacy: GroupsPrivacyFilterValues | undefined,
+  requiredPrivacy: GroupsPrivacyFilterValues,
   isPrivateGroup: boolean
 ) {
   return (
     requiredPrivacy === "all" ||
-    requiredPrivacy === undefined ||
     (requiredPrivacy === "private" && isPrivateGroup) ||
     (requiredPrivacy === "public" && !isPrivateGroup)
+  );
+}
+
+function isRequiredAvatarColor(
+  requiredAvatarColor: GroupsAvatarColorFilterValues,
+  groupsAvatarColor: AvatarColor | undefined
+) {
+  return (
+    requiredAvatarColor === "all" || requiredAvatarColor === groupsAvatarColor
   );
 }
 

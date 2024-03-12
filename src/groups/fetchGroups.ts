@@ -4,7 +4,7 @@ import { GroupsFilters } from "./GroupsFilters";
 
 async function fetchGroups(
   setGroups: (groups: Group[]) => void,
-  params?: Partial<GroupsFilters>
+  params?: GroupsFilters
 ) {
   const groups = await dataGateway.getGroups(params);
 

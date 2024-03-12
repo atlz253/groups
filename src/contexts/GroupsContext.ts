@@ -1,6 +1,10 @@
 import { Dispatch, createContext } from "react";
 import Group from "../groups/Group";
-import { GroupsFilters, GroupsPrivacyFilterValues } from "../groups/GroupsFilters";
+import {
+  GroupsAvatarColorFilterValues,
+  GroupsFilters,
+  GroupsPrivacyFilterValues,
+} from "../groups/GroupsFilters";
 
 type GroupsContextData = {
   store: GroupsContextState;
@@ -20,11 +24,16 @@ export type GroupsAction =
   | {
       type: "SET_PRIVACY_FILTER";
       payload: GroupsPrivacyFilterValues;
+    }
+  | {
+      type: "SET_AVATAR_COLOR_FILTER";
+      payload: GroupsAvatarColorFilterValues;
     };
 
 export const groupsActions = {
   setGroups: "SET_GROUPS",
   setPrivacyFilter: "SET_PRIVACY_FILTER",
+  setAvatarColorFilter: "SET_AVATAR_COLOR_FILTER",
 } as const;
 
 const defaultGroupsContextValue: GroupsContextData = {
@@ -32,6 +41,7 @@ const defaultGroupsContextValue: GroupsContextData = {
     groups: [],
     filters: {
       privacyFilter: "all",
+      avatarColorFilter: "all",
     },
   },
   dispatch: () => undefined,
@@ -52,6 +62,11 @@ function groupsContextReducer(
       return {
         ...state,
         filters: { ...state.filters, privacyFilter: payload },
+      };
+    case groupsActions.setAvatarColorFilter:
+      return {
+        ...state,
+        filters: { ...state.filters, avatarColorFilter: payload },
       };
     default:
       return state;

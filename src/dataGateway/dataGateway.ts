@@ -9,7 +9,7 @@ class dataGateway {
     this.gateway = dataGateway;
   }
 
-  public static async getGroups(params?: Partial<GroupsFilters>) {
+  public static async getGroups(params?: GroupsFilters) {
     return this.gateway.getGroups(params);
   }
 }
