@@ -1,9 +1,11 @@
-import Group from "../../group/Group";
+import Group from "../../groups/Group";
+import { GroupsFilters } from "../../groups/GroupsFilters";
+import errorMessages from "../../utils/errorMessages";
 import GatewayResponse from "./GatewayResponse";
-import { default as errorMessages } from "./errorMessages";
 
 class abstractGateway {
-  public async getGroups(): Promise<GatewayResponse<Group[]>> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async getGroups(_params?: Partial<GroupsFilters>): Promise<GatewayResponse<Group[]>> {
     throw new Error(
       errorMessages.getMethodNotImplementedErrorMessage(
         abstractGateway.name,

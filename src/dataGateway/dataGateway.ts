@@ -1,3 +1,4 @@
+import { GroupsFilters } from "../groups/GroupsFilters";
 import abstractGateway from "./abstractGateway/abstractGateway";
 import mockGateway from "./mockGateway/mockGateway";
 
@@ -8,8 +9,8 @@ class dataGateway {
     this.gateway = dataGateway;
   }
 
-  public static async getGroups() {
-    return this.gateway.getGroups();
+  public static async getGroups(params?: Partial<GroupsFilters>) {
+    return this.gateway.getGroups(params);
   }
 }
 

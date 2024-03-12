@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Group, { AvatarColor, User } from "../../group/Group";
+import Group, { AvatarColor, User } from "../../groups/Group";
 import styles from "./GroupCard.module.css";
 
 const PRIVATE_GROUP_LABEL = "Приватная группа";

@@ -1,14 +1,8 @@
-import { useEffect, useState } from "react";
-import dataGateway from "../dataGateway/dataGateway";
-import Group from "../group/Group";
 import GroupCard from "./GroupCard/GroupCard";
+import { useGroups } from "../hooks/groups";
 
 function Groups() {
-  const [groups, setGroups] = useState<Group[]>([]);
-
-  useEffect(() => {
-    dataGateway.getGroups().then((groups) => setGroups(groups.data || []));
-  }, []);
+  const { groups } = useGroups();
 
   return (
     <>

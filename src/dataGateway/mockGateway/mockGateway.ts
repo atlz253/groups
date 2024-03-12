@@ -1,7 +1,9 @@
-import Group from "../../group/Group";
+import Group from "../../groups/Group";
+import { GroupsFilters } from "../../groups/GroupsFilters";
 import promiseResolveTimeout from "../../utils/promiseResolveTimeout";
 import GatewayResponse from "../abstractGateway/GatewayResponse";
 import abstractGateway from "../abstractGateway/abstractGateway";
+import filterGroups from "./filterGroups";
 import groups from "./groups";
 
 class mockGateway extends abstractGateway {
@@ -13,10 +15,10 @@ class mockGateway extends abstractGateway {
     this.requestDelayMilliseconds = requestDelayMilliseconds;
   }
 
-  public async getGroups() {
+  public async getGroups(params?: Partial<GroupsFilters>) {
     const data: GatewayResponse<Group[]> = {
       result: 1,
-      data: groups,
+      data: params === undefined ? groups : filterGroups(params),
     };
 
     return promiseResolveTimeout(data, this.requestDelayMilliseconds);
