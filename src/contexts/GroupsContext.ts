@@ -3,6 +3,7 @@ import Group from "../groups/Group";
 import {
   GroupsAvatarColorFilterValues,
   GroupsFilters,
+  GroupsFriendsFilter,
   GroupsPrivacyFilterValues,
 } from "../groups/GroupsFilters";
 
@@ -28,12 +29,17 @@ export type GroupsAction =
   | {
       type: "SET_AVATAR_COLOR_FILTER";
       payload: GroupsAvatarColorFilterValues;
+    }
+  | {
+      type: "SET_FRIENDS_FILTER";
+      payload: GroupsFriendsFilter;
     };
 
 export const groupsActions = {
   setGroups: "SET_GROUPS",
   setPrivacyFilter: "SET_PRIVACY_FILTER",
   setAvatarColorFilter: "SET_AVATAR_COLOR_FILTER",
+  setFriendsFilter: "SET_FRIENDS_FILTER",
 } as const;
 
 const defaultGroupsContextValue: GroupsContextData = {
@@ -42,6 +48,7 @@ const defaultGroupsContextValue: GroupsContextData = {
     filters: {
       privacyFilter: "all",
       avatarColorFilter: "all",
+      friendsFilter: "all",
     },
   },
   dispatch: () => undefined,
@@ -67,6 +74,11 @@ function groupsContextReducer(
       return {
         ...state,
         filters: { ...state.filters, avatarColorFilter: payload },
+      };
+    case groupsActions.setFriendsFilter:
+      return {
+        ...state,
+        filters: { ...state.filters, friendsFilter: payload },
       };
     default:
       return state;

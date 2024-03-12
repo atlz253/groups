@@ -7,6 +7,7 @@ import {
 import {
   GroupsAvatarColorFilterValues,
   GroupsFilters,
+  GroupsFriendsFilter,
   GroupsPrivacyFilterValues,
 } from "../groups/GroupsFilters";
 import fetchGroups from "../groups/fetchGroups";
@@ -45,6 +46,16 @@ export function useGroupsAvatarColorFilter() {
   return { avatarColorFilter, setAvatarColorFilter };
 }
 
+export function useGroupsFriendFilter() {
+  const { filters, dispatch } = useGroupsFilters();
+  const { friendsFilter } = filters;
+  const setFriendsFilter = (friendsFilter: GroupsFriendsFilter) => {
+    updateGroups(dispatch, { ...filters, friendsFilter });
+    dispatch({ type: groupsActions.setFriendsFilter, payload: friendsFilter });
+  };
+  return { friendsFilter, setFriendsFilter };
+}
+
 function useGroupsFilters() {
   const { store, dispatch } = useGroupsContext();
   const { filters } = store;
@@ -65,7 +76,7 @@ export function useGroupsReducer() {
 
 export function updateGroups(
   dispatch: Dispatch<GroupsAction>,
-  params?: Partial<GroupsFilters>
+  params?: GroupsFilters
 ) {
   fetchGroups(getGroupsSetFunction(dispatch), params);
 }
