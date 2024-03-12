@@ -1,21 +1,32 @@
 import GatewayResponse from "../dataGateway/abstractGateway/GatewayResponse";
 import dataGateway from "../dataGateway/dataGateway";
+import Cache from "../utils/cache";
 import Group from "./Group";
 import { GroupsFilters } from "./GroupsFilters";
 
 const FETCH_ERROR_MESSAGE =
   "Не удалось получить данные, попробуйте перезагрузить страницу";
 
+const fetchGroupsCache = new Cache<Group[]>(60000);
+
 async function fetchGroups(
   setGroups: (groups: Group[]) => void,
-  params?: GroupsFilters
+  params: GroupsFilters
 ) {
-  try {
-    const groups = await getGroupsAndRetryIfErrors(params);
+  const cache = fetchGroupsCache.get(JSON.stringify(params));
 
-    setGroups(groups.data);
-  } catch (error) {
-    alert(error);
+  if (cache !== undefined) {
+    setGroups(cache);
+  } else {
+    try {
+      const groups = await getGroupsAndRetryIfErrors(params);
+
+      fetchGroupsCache.set(JSON.stringify(params), groups.data);
+
+      setGroups(groups.data);
+    } catch (error) {
+      alert(error);
+    }
   }
 }
 

@@ -5,6 +5,7 @@ import {
   GroupsFilters,
   GroupsFriendsFilter,
   GroupsPrivacyFilterValues,
+  getDefaultGroupsFilters,
 } from "../groups/GroupsFilters";
 
 type GroupsContextData = {
@@ -45,11 +46,7 @@ export const groupsActions = {
 const defaultGroupsContextValue: GroupsContextData = {
   store: {
     groups: [],
-    filters: {
-      privacyFilter: "all",
-      avatarColorFilter: "all",
-      friendsFilter: "all",
-    },
+    filters: getDefaultGroupsFilters(),
   },
   dispatch: () => undefined,
 };

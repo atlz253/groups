@@ -9,6 +9,7 @@ import {
   GroupsFilters,
   GroupsFriendsFilter,
   GroupsPrivacyFilterValues,
+  getDefaultGroupsFilters,
 } from "../groups/GroupsFilters";
 import fetchGroups from "../groups/fetchGroups";
 import Group from "../groups/Group";
@@ -69,14 +70,17 @@ export function useGroupsReducer() {
     defaultGroupsContextValue.store
   );
 
-  useEffect(() => updateGroups(dispatch), []);
+  useEffect(
+    () => updateGroups(dispatch, getDefaultGroupsFilters()),
+    []
+  );
 
   return { store, dispatch };
 }
 
 export function updateGroups(
   dispatch: Dispatch<GroupsAction>,
-  params?: GroupsFilters
+  params: GroupsFilters
 ) {
   fetchGroups(getGroupsSetFunction(dispatch), params);
 }
