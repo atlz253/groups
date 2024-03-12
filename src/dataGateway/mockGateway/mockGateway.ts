@@ -1,5 +1,6 @@
 import Group from "../../groups/Group";
 import { GroupsFilters } from "../../groups/GroupsFilters";
+import random from "../../utils/random";
 import promiseResolveTimeout from "../../utils/promiseResolveTimeout";
 import GatewayResponse from "../abstractGateway/GatewayResponse";
 import abstractGateway from "../abstractGateway/abstractGateway";
@@ -17,7 +18,7 @@ class mockGateway extends abstractGateway {
 
   public async getGroups(params?: GroupsFilters) {
     const data: GatewayResponse<Group[]> = {
-      result: 1,
+      result: random.getInteger(0, 2) as 0 | 1,
       data: params === undefined ? groups : filterGroups(params),
     };
 
