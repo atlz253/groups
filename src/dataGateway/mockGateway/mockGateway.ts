@@ -1,5 +1,5 @@
 import Group from "../../group/Group";
-import promiseResolveTimeout from "../../utils/promiseResolveDelay";
+import promiseResolveTimeout from "../../utils/promiseResolveTimeout";
 import GatewayResponse from "../abstractGateway/GatewayResponse";
 import abstractGateway from "../abstractGateway/abstractGateway";
 import groups from "./groups";
